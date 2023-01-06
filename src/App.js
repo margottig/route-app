@@ -1,23 +1,38 @@
 import logo from './logo.svg';
 import './App.css';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import { useState } from 'react';
+import Home from './components/Home';
+import About from './components/About';
+import Navegar from './components/Navegar';
 
 function App() {
+
+  const [state,setState] = useState([
+    {
+      id:1,
+      personaje:"Mario Bros",
+      edad:"123",
+    },
+    {
+      id:2,
+      personaje:"Sonic",
+      edad:"456",
+    },
+  ])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* WRAPER RUTAS */}
+      <BrowserRouter>
+        <Navegar/>
+        <Routes>
+          <Route path='/home' element={<Home state={state[0].id} />}></Route>
+          <Route path='/about/:numero' element={<About state={state}/>}></Route>
+          <Route path='/about' element={<About/>}></Route>
+        </Routes>
+      </BrowserRouter>
+     
     </div>
   );
 }
